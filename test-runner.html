@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 테스트 실행기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f5f5f5;
+    }
+    .test-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .test-result {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 4px solid #ccc;
+    }
+    .test-result.pass {
+      background: #e8f5e9;
+      border-left-color: #4caf50;
+      color: #2e7d32;
+    }
+    .test-result.fail {
+      background: #ffebee;
+      border-left-color: #f44336;
+      color: #c62828;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: white;
+      border-radius: 5px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #1976d2;
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>웹 앱 자동 테스트 실행기</h1>
+
+    <div class="test-section">
+      <h2>1. 코드 분석 테스트</h2>
+      <div id="code-test-results"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>2. 실제 앱 테스트</h2>
+      <p>아래의 테스트 앱에서 직접 상호작용하여 기능을 확인하세요.</p>
+      <button onclick="runAppTest()">자동 테스트 실행</button>
+      <iframe id="app-frame" src="index.html"></iframe>
+    </div>
+
+    <div class="test-section">
+      <h2>3. 테스트 결과</h2>
+      <div id="app-test-results"></div>
+    </div>
+  </div>
+
+  <script>
+    // 코드 분석 테스트
+    async function runCodeTest() {
+      const resultsDiv = document.getElementById('code-test-results');
+      resultsDiv.innerHTML = '';
+
+      try {
+        // script.js 파일 로드
+        const response = await fetch('script.js');
+        const jsContent = await response.text();
+
+        const checks = [
+          {
+            name: 'ID: nameInput 확인',
+            pattern: 'getElementById("nameInput")',
+            success: 'nameInput 요소를 올바르게 찾습니다'
+          },
+          {
+            name: 'ID: startButton 확인',
+            pattern: 'getElementById("startButton")',
+            success: 'startButton 요소를 올바르게 찾습니다'
+          },
+          {
+            name: 'ID: resultArea 확인',
+            pattern: 'getElementById("resultArea")',
+            success: 'resultArea 요소를 올바르게 찾습니다'
+          },
+          {
+            name: 'CSS 클래스: message-success 적용',
+            pattern: '"message-success"',
+            success: '성공 메시지에 올바른 CSS 클래스를 적용합니다'
+          },
+          {
+            name: 'CSS 클래스: message-warning 적용',
+            pattern: '"message-warning"',
+            success: '경고 메시지에 올바른 CSS 클래스를 적용합니다'
+          },
+          {
+            name: 'CSS 클래스: message-box 적용',
+            pattern: '"message-box "',
+            success: '메시지 박스에 기본 스타일 클래스를 적용합니다'
+          },
+          {
+            name: 'null 체크 방어 코드',
+            pattern: '!nameInput || !startButton || !messageArea',
+            success: 'null 참조 에러를 방지하는 방어 코드가 있습니다'
+          }
+        ];
+
+        let allPassed = true;
+        checks.forEach(check => {
+          const passed = jsContent.includes(check.pattern);
+          const resultClass = passed ? 'pass' : 'fail';
+          const message = passed ? check.success : `필수 요소 누락: ${check.pattern}`;
+
+          const resultDiv = document.createElement('div');
+          resultDiv.className = `test-result ${resultClass}`;
+          resultDiv.innerHTML = `<strong>${check.name}</strong><br>${message}`;
+          resultsDiv.appendChild(resultDiv);
+
+          if (!passed) allPassed = false;
+        });
+
+        // 최종 결과
+        const finalResult = document.createElement('div');
+        finalResult.className = `test-result ${allPassed ? 'pass' : 'fail'}`;
+        finalResult.innerHTML = `<strong>${allPassed ? '코드 분석: 통과' : '코드 분석: 실패'}</strong>`;
+        resultsDiv.appendChild(finalResult);
+
+      } catch (error) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'test-result fail';
+        errorDiv.innerHTML = `<strong>에러</strong><br>${error.message}`;
+        resultsDiv.appendChild(errorDiv);
+      }
+    }
+
+    // 실제 앱 테스트
+    function runAppTest() {
+      const appFrame = document.getElementById('app-frame');
+      const resultsDiv = document.getElementById('app-test-results');
+      resultsDiv.innerHTML = '<p>테스트 실행 중...</p>';
+
+      // 프레임 로드 대기
+      setTimeout(() => {
+        try {
+          const frameDoc = appFrame.contentDocument || appFrame.contentWindow.document;
+          const frameWindow = appFrame.contentWindow;
+
+          // Test 1: 이름 없이 버튼 클릭
+          const nameInput = frameDoc.getElementById('nameInput');
+          const startButton = frameDoc.getElementById('startButton');
+          const resultArea = frameDoc.getElementById('resultArea');
+
+          if (!nameInput || !startButton || !resultArea) {
+            resultsDiv.innerHTML = '<div class="test-result fail"><strong>에러</strong><br>필요한 HTML 요소를 찾을 수 없습니다</div>';
+            return;
+          }
+
+          resultsDiv.innerHTML = '';
+
+          // Test 1
+          nameInput.value = '';
+          startButton.click();
+
+          setTimeout(() => {
+            const messageBox1 = resultArea.querySelector('div');
+            const test1Pass = messageBox1 &&
+                            messageBox1.className.includes('message-warning') &&
+                            messageBox1.className.includes('message-box') &&
+                            messageBox1.textContent.includes('이름을 먼저 입력');
+
+            const test1Result = document.createElement('div');
+            test1Result.className = `test-result ${test1Pass ? 'pass' : 'fail'}`;
+            test1Result.innerHTML = `
+              <strong>테스트 1: 이름 입력 없이 버튼 클릭</strong><br>
+              ${test1Pass ? '통과: 노란 경고 메시지가 표시됩니다' : '실패: 예상된 메시지를 찾을 수 없습니다'}<br>
+              메시지: "${messageBox1 ? messageBox1.textContent : 'N/A'}"<br>
+              클래스: "${messageBox1 ? messageBox1.className : 'N/A'}"
+            `;
+            resultsDiv.appendChild(test1Result);
+
+            // Test 2
+            nameInput.value = 'Test User';
+            startButton.click();
+
+            setTimeout(() => {
+              const messageBox2 = resultArea.querySelector('div');
+              const test2Pass = messageBox2 &&
+                              messageBox2.className.includes('message-success') &&
+                              messageBox2.className.includes('message-box') &&
+                              messageBox2.textContent.includes('Test User');
+
+              const test2Result = document.createElement('div');
+              test2Result.className = `test-result ${test2Pass ? 'pass' : 'fail'}`;
+              test2Result.innerHTML = `
+                <strong>테스트 2: 이름 입력 후 버튼 클릭</strong><br>
+                ${test2Pass ? '통과: 초록 성공 메시지가 표시됩니다' : '실패: 예상된 메시지를 찾을 수 없습니다'}<br>
+                메시지: "${messageBox2 ? messageBox2.textContent : 'N/A'}"<br>
+                클래스: "${messageBox2 ? messageBox2.className : 'N/A'}"
+              `;
+              resultsDiv.appendChild(test2Result);
+
+              // Final result
+              const allPassed = test1Pass && test2Pass;
+              const finalResult = document.createElement('div');
+              finalResult.className = `test-result ${allPassed ? 'pass' : 'fail'}`;
+              finalResult.innerHTML = `<strong>${allPassed ? '앱 테스트: 통과' : '앱 테스트: 실패'}</strong>`;
+              resultsDiv.appendChild(finalResult);
+            }, 500);
+          }, 500);
+
+        } catch (error) {
+          resultsDiv.innerHTML = `<div class="test-result fail"><strong>에러</strong><br>${error.message}</div>`;
+        }
+      }, 1000);
+    }
+
+    // 페이지 로드 시 코드 테스트 실행
+    window.addEventListener('load', () => {
+      runCodeTest();
+    });
+  </script>
+</body>
+</html>

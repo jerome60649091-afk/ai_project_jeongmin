@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"c:\\\\Users\\\\admin\\\\Desktop\\\\project\\\\\" 2>&1)",
+      "Read(//c/Users/admin/Desktop/**)"
+    ]
+  }
+}

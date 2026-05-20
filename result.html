@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>환자 혈압 데이터 테이블</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    h1 { margin: 0 0 8px; }
+    p { margin: 0 0 16px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .summary-card {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .summary-card .label {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+    .summary-card .value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 12px;
+      text-align: left;
+    }
+    th { background: #eff6ff; }
+    tr:nth-child(even) td { background: #fafafa; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>환자 혈압 데이터 테이블</h1>
+    <p>결측치가 없는 정상 데이터만 표시합니다.</p>
+
+    <div class="summary">
+      <div class="summary-card">
+        <div class="label">전체 데이터 수</div>
+        <div class="value">100</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">제외된 데이터 수</div>
+        <div class="value">0</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">정상 데이터 수</div>
+        <div class="value">100</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>나이</th>
+          <th>혈압</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td>강서준</td><td>26</td><td>129</td></tr>
+<tr><td>박지우</td><td>41</td><td>134</td></tr>
+<tr><td>윤하린</td><td>32</td><td>135</td></tr>
+<tr><td>김서연</td><td>43</td><td>121</td></tr>
+<tr><td>한민준</td><td>50</td><td>122</td></tr>
+<tr><td>오지훈</td><td>58</td><td>131</td></tr>
+<tr><td>이재윤</td><td>57</td><td>131</td></tr>
+<tr><td>박준서</td><td>44</td><td>123</td></tr>
+<tr><td>박지민</td><td>55</td><td>121</td></tr>
+<tr><td>최지원</td><td>33</td><td>128</td></tr>
+<tr><td>이재윤</td><td>27</td><td>140</td></tr>
+<tr><td>최민준</td><td>25</td><td>120</td></tr>
+<tr><td>조하윤</td><td>23</td><td>131</td></tr>
+<tr><td>최지우</td><td>49</td><td>138</td></tr>
+<tr><td>김현우</td><td>34</td><td>136</td></tr>
+<tr><td>이민서</td><td>27</td><td>128</td></tr>
+<tr><td>김도현</td><td>32</td><td>127</td></tr>
+<tr><td>김유진</td><td>46</td><td>124</td></tr>
+<tr><td>이준혁</td><td>21</td><td>123</td></tr>
+<tr><td>조민준</td><td>56</td><td>125</td></tr>
+<tr><td>이서연</td><td>51</td><td>139</td></tr>
+<tr><td>오서준</td><td>39</td><td>123</td></tr>
+<tr><td>이민서</td><td>23</td><td>139</td></tr>
+<tr><td>이하은</td><td>26</td><td>122</td></tr>
+<tr><td>한지후</td><td>41</td><td>126</td></tr>
+<tr><td>박서준</td><td>49</td><td>124</td></tr>
+<tr><td>조하은</td><td>45</td><td>129</td></tr>
+<tr><td>한민준</td><td>20</td><td>120</td></tr>
+<tr><td>이서현</td><td>44</td><td>129</td></tr>
+<tr><td>김준호</td><td>24</td><td>121</td></tr>
+<tr><td>최지원</td><td>22</td><td>130</td></tr>
+<tr><td>윤지아</td><td>49</td><td>124</td></tr>
+<tr><td>이민재</td><td>58</td><td>127</td></tr>
+<tr><td>오유진</td><td>24</td><td>131</td></tr>
+<tr><td>김유진</td><td>41</td><td>134</td></tr>
+<tr><td>조지우</td><td>43</td><td>139</td></tr>
+<tr><td>김도현</td><td>23</td><td>135</td></tr>
+<tr><td>오지수</td><td>55</td><td>135</td></tr>
+<tr><td>정민준</td><td>30</td><td>138</td></tr>
+<tr><td>최지원</td><td>40</td><td>120</td></tr>
+<tr><td>조하윤</td><td>25</td><td>131</td></tr>
+<tr><td>윤서연</td><td>45</td><td>125</td></tr>
+<tr><td>강서연</td><td>41</td><td>139</td></tr>
+<tr><td>정서윤</td><td>52</td><td>127</td></tr>
+<tr><td>최서현</td><td>27</td><td>128</td></tr>
+<tr><td>박지우</td><td>23</td><td>132</td></tr>
+<tr><td>강태윤</td><td>23</td><td>139</td></tr>
+<tr><td>조민준</td><td>46</td><td>139</td></tr>
+<tr><td>윤하은</td><td>54</td><td>140</td></tr>
+<tr><td>최유진</td><td>48</td><td>134</td></tr>
+<tr><td>정하은</td><td>56</td><td>130</td></tr>
+<tr><td>김도현</td><td>20</td><td>127</td></tr>
+<tr><td>윤서연</td><td>22</td><td>130</td></tr>
+<tr><td>윤지후</td><td>50</td><td>128</td></tr>
+<tr><td>이준서</td><td>40</td><td>126</td></tr>
+<tr><td>김준호</td><td>20</td><td>129</td></tr>
+<tr><td>강서우</td><td>37</td><td>126</td></tr>
+<tr><td>오지훈</td><td>40</td><td>138</td></tr>
+<tr><td>한지우</td><td>48</td><td>120</td></tr>
+<tr><td>강지민</td><td>35</td><td>125</td></tr>
+<tr><td>김도현</td><td>34</td><td>127</td></tr>
+<tr><td>윤하린</td><td>31</td><td>122</td></tr>
+<tr><td>오서윤</td><td>47</td><td>123</td></tr>
+<tr><td>윤지후</td><td>20</td><td>139</td></tr>
+<tr><td>박하윤</td><td>45</td><td>123</td></tr>
+<tr><td>최하윤</td><td>30</td><td>137</td></tr>
+<tr><td>최유진</td><td>27</td><td>124</td></tr>
+<tr><td>강서준</td><td>22</td><td>129</td></tr>
+<tr><td>김지우</td><td>25</td><td>126</td></tr>
+<tr><td>한유나</td><td>44</td><td>121</td></tr>
+<tr><td>박지민</td><td>51</td><td>126</td></tr>
+<tr><td>김유진</td><td>36</td><td>136</td></tr>
+<tr><td>강유진</td><td>47</td><td>130</td></tr>
+<tr><td>박서윤</td><td>46</td><td>127</td></tr>
+<tr><td>강지민</td><td>44</td><td>132</td></tr>
+<tr><td>윤민지</td><td>31</td><td>136</td></tr>
+<tr><td>한가은</td><td>45</td><td>125</td></tr>
+<tr><td>오세진</td><td>44</td><td>126</td></tr>
+<tr><td>이민서</td><td>21</td><td>136</td></tr>
+<tr><td>이민재</td><td>23</td><td>129</td></tr>
+<tr><td>최민서</td><td>55</td><td>132</td></tr>
+<tr><td>윤하은</td><td>56</td><td>138</td></tr>
+<tr><td>박하윤</td><td>37</td><td>125</td></tr>
+<tr><td>윤서연</td><td>34</td><td>128</td></tr>
+<tr><td>조하윤</td><td>43</td><td>122</td></tr>
+<tr><td>오유진</td><td>48</td><td>135</td></tr>
+<tr><td>조민준</td><td>24</td><td>122</td></tr>
+<tr><td>강지민</td><td>49</td><td>134</td></tr>
+<tr><td>김민서</td><td>26</td><td>133</td></tr>
+<tr><td>윤지아</td><td>50</td><td>129</td></tr>
+<tr><td>이준혁</td><td>57</td><td>122</td></tr>
+<tr><td>오지훈</td><td>43</td><td>128</td></tr>
+<tr><td>이민재</td><td>21</td><td>122</td></tr>
+<tr><td>이유진</td><td>48</td><td>136</td></tr>
+<tr><td>조현서</td><td>26</td><td>130</td></tr>
+<tr><td>강민재</td><td>26</td><td>137</td></tr>
+<tr><td>강민재</td><td>45</td><td>140</td></tr>
+<tr><td>강서연</td><td>42</td><td>130</td></tr>
+<tr><td>한서준</td><td>51</td><td>140</td></tr>
+<tr><td>김유진</td><td>25</td><td>128</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

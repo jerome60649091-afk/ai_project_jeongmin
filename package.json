@@ -1,0 +1,9 @@
+{
+  "name": "simple-html-webpage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A minimal Node.js project that serves a simple HTML page.",
+  "scripts": {
+    "start": "node -e \"const http=require('http'); const fs=require('fs'); const path=require('path'); const port=3000; const filePath=path.join(process.cwd(),'index.html'); http.createServer((req,res)=>{ fs.readFile(filePath,'utf8',(err,data)=>{ if(err){ res.writeHead(500, {'Content-Type':'text/plain; charset=utf-8'}); res.end('index.html을 읽을 수 없습니다.'); return; } res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'}); res.end(data); }); }).listen(port, ()=>{ console.log('http://localhost:' + port); });\""
+  }
+}
